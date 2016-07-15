@@ -1,0 +1,116 @@
+﻿.bodyform{
+	margin: 0px;
+	top: 0px;
+	position:relative;
+}
+
+.uredi{
+	margin-left: 5px;
+}
+
+a{
+	color: #9999FF;
+	text-decoration: none;
+}
+
+a:active{
+	color: #FF8550;
+}
+a:hover{
+	color: #CC6600;
+}
+a:visited{
+	color: #880000;
+}
+
+#popup{
+	border-width: 2px;
+	border-color: #99CCFF;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px 1px #111111;
+	display: none;
+	position: absolute;
+	margin: 0;
+	padding: 5px 20px 5px 20px;
+	background-color: #CCCCFF;
+	color:#CC3300;
+	z-index:250;
+}
+
+.profpic{
+	box-shadow: 3px 3px 5px 1px #000066;
+	border-radius: 5px;
+	height: 140px;
+	width: 140px;
+	margin: 10px;
+	border: 3 solid #666699;
+	background-color: #333333;
+}
+
+
+#logz{
+	margin: 1px;
+	padding: 1px;
+	width: 335px;
+}
+
+#logz p{
+	margin: 5 0 5 0;
+	padding: 0 0 0 0;
+	float:right;
+}
+
+#areg{
+	margin: 0px 5px;
+	padding: 0px 5px;
+	border-radius: 8px;
+	border: 2px solid #660033;
+	box-shadow: 2px 2px 5px 1px #333333;
+	text-decoration: none;
+	font-weight: bold;
+	color: #CC0000;
+	background-color: #000066;
+}
+
+#err{
+	border-radius: 4px;
+	box-shadow: 3px 3px 5px 1px #111111;
+	margin: 1 0 1 0;
+	padding: 0 0 0 0;
+	float: none;
+	left: 100%;
+	color: #400000;
+	background-color: #6699FF;
+	border: 2;
+}
+
+#top{
+	background-image: url('../slike/pic_top.jpg');
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+}
+
+body{
+	font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+	font-size: medium;
+	text-align: justify;
+	background-color: #000044;
+	color: #CCCCCC;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+
+#body{
+	background: #5588BB;
+	padding: 0px 15px 15px 15px;
+	vertical-align: top;
+}
+.frame tr{
+    box-shadow: 2px 2px 1px 1px #000044;
+	border:1;
+	border-style:ridge;
+	border-color:#808080;
+	background:#336699
+	}
+}

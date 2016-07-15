@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+
+<html>
+ <head>
+<script src="data/d3.v3.min.js" charset="utf-8"></script>
+<script src="data/topojson.v1.min.js"></script>
+
+<style>
+
+body{
+margin : 0px;
+background-color: black;
+}
+</style>
+ </head>
+<body>
+<script src="data/data.js" charset="utf-8"></script>
+<script>
+
+
+// KONSTANTE --------------------------------------------------------------------------
+
+const WIDTH = window.innerWidth-4;//800;
+const HEIGHT = window.innerHeight-4;//600;
+const PADDING_TOP = 0;
+const BR_ZVIJEZDA = 1000;
+const PADDING = 100;
+
+const IMG_PATH = "slike/";
+const IMG_DATA_PATH = "slike/data/";
+const MENU_ANIM_MOVE = 1000;
+
+const ORBIT_SIZE_SCALE = 6.0e7;
+const ORBIT_SIZE_DEF = 10;
+const ORBIT_DIST_SCALE = 4.0e7;
+const ORBIT_ROT_SCALE = 0.001;
+const ORBIT_SPEED_SCALE = 10;
+const ORBIT_ZOOM_SCALE = 10;
+const ORBIT_MAX_ZOOM = 500;
+
+const ORBIT_OSI_SCALE = 2;
+const ORBIT_ROT_CICLE = 0.66;
+const ORBIT_ANIM_MOVE = 500;
+
+const GLOB_VEL = 1;
+const GLOB_TIMER = 1;
+
+const PLANET_STROKE = 0;
+
+
+// GLOB VARIJABLE --------------------------------------------------------------------------
+
+
+
+// DEFINICIJE --------------------------------------------------------------------------
+	
+
+// INICIJALIZACIJA + DEFS --------------------------------------------------------------------------
+	
+// KOD ----------------------------------------------------------------------------------------
+
+</script>
+<script src="data/init.js" charset="utf-8"></script>
+<script src="data/mod1.js" charset="utf-8"></script>
+<script src="data/mod2.js" charset="utf-8"></script>
+<script src="data/mod0.js" charset="utf-8"></script>
+<script>
+
+window.onload = function () { 
+	Header.click.transition()
+		.duration(MENU_ANIM_MOVE/2)
+		.attr("fill", "rgba(250,250,250,0)")
+		.transition()
+		.duration(MENU_ANIM_MOVE/2)
+		.attr("fill", "rgba(250,250,250,1)")
+		.each("start",function(){Header.click.html("POKRENI");});
+	
+	g_allLoaded = true; 
+	}
+
+// FUNKCIJE --------------------------------------------------------------------------
+
+
+d3.timer(function(elapsed) {
+	
+	switch(g_viewMod){
+	case 0: 
+	
+	break;
+	case 1:
+		TimerMod1(elapsed);
+		break;
+	case 11:
+		TimerMod11(elapsed);
+		break;
+	case 2:
+		TimerMod2(elapsed);
+		break;
+	case 22:
+		TimerMod22(elapsed);
+		break;
+	}
+});
+
+
+</script>
+ </body>
+</html>

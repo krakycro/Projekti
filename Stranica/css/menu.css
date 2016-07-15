@@ -1,0 +1,161 @@
+﻿.h_menu{
+	position: relative;
+	margin: 0px 0px 0px 160px;
+	z-index:98;
+}
+
+.h_menu ul ul {
+	display: none;
+}
+
+.h_menu ul li:hover ul {
+	display: none;
+}
+
+.h_menu ul {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	box-shadow: 2px 2px 5px 1px #333333;
+	list-style: none;
+	position: relative;
+	display: inline-block;
+	background-color: #82AAF3;
+}
+.h_menu ul li {
+	border-radius: 5px;
+	padding: 10px 0px 10px 0px;
+	float: left;
+	border: 2;
+	border-color:#003399;
+	}
+.h_menu ul li:hover {
+	background: #4b545f;
+}
+.h_menu ul li:hover a {
+	color: #fff;
+}
+	
+.h_menu ul li a {
+	display: block;
+	padding-left: 42px;
+	padding-right: 42px;
+	color: #333333;
+	text-decoration: none;
+}
+
+.h_menu ul ul {
+	background: #5f6975; 
+	border-radius: 4px; 
+	padding: 0;
+	position: absolute; 
+	top: 100%;
+	}
+.h_menu ul ul li {
+	float: none; 
+	padding: 0px 0px 0px 0px;
+	border-top: 2px solid #6b727c;
+	border-bottom: 2px solid #575f6a;
+	position: relative;
+	}
+.h_menu ul ul li a {
+	padding: 10px 58px;
+	color: #fff;
+}	
+.h_menu ul ul li a:hover {
+	background: #4b545f;
+}
+
+.h_menu ul ul ul {
+	position: absolute; left: 100%; top:0;
+}
+
+#gback{
+	background-color: #CDC2FD;
+	border-radius: 5px;
+}
+
+#gback a{
+	color: #990000;
+}
+
+.v_menu ul{
+	z-index:99;
+	box-shadow: 5px 5px 10px 1px #111111;
+	border-radius: 2px;
+	padding: 0px;
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+	position: absolute;
+	background-color: #BBC5FF;
+	border-style: 0px 0px 0px 0px;
+	top: 210px;
+	display: block;
+}
+
+
+.v_menu ul li a{
+	display: inline-block;
+	color: #333333;
+	text-decoration: none;
+	}
+}
+
+.v_menu ul li:hover ul{
+	display: none;
+	
+}
+
+.v_menu ul li {
+	border-radius: 3px;
+	border-top: 2px solid #BBCBFD;
+	border-bottom: 2px solid #6CACCC;
+	padding: 10px 0px 10px 0px;
+}
+.v_menu ul li:hover {
+	background: #4b547f;
+}
+.v_menu ul li:hover a {
+	color: #fff;
+}
+
+.v_menu ul li a {
+	display: block;
+	padding-left: 38px;
+	padding-right: 38px;
+	color: #333333;
+	text-decoration: none;
+}
+
+.v_menu ul ul {
+	background: #5f6985; 
+	border-radius: 4px; 
+	padding: 0px 0px 0px 0px;
+	margin: -40px 0px 0px 0px;
+	position: apsolute;
+	display: none;
+	left: 100%;
+	top:auto;
+	}
+.v_menu ul ul li {
+	padding: 0px 0px 0px 0px;
+	border-top: 2px solid #6b747c;
+	border-bottom: 2px solid #575f8a;
+	}
+.v_menu ul ul li a {
+	padding: 10px 50px;
+	color: #fff;
+}	
+.v_menu ul ul li a:hover {
+	background: #4b547f;
+}
+
+.v_menu ul ul ul {
+    margin: -40px 0px 0px 0px;
+	position: absolute;
+	display: none;
+	left: 100%;
+	top:auto;
+}
+
+

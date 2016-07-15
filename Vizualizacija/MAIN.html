@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html>
+ <head>
+<script src="data/d3.v3.min.js" charset="utf-8"></script>
+<script src="data/topojson.v1.min.js"></script>
+
+<style>
+
+body{
+margin : 0px;
+background-color: black;
+}
+</style>
+ </head>
+<body>
+<script src="data/data.js" charset="utf-8"></script>
+<script>
+
+
+// KONSTANTE --------------------------------------------------------------------------
+
+const WIDTH = window.innerWidth-4;//800;
+const HEIGHT = window.innerHeight-4;//600;
+const PADDING_TOP = 0;
+const BR_ZVIJEZDA = 1000;
+const PADDING = 100;
+
+const IMG_PATH = "slike/";
+
+const ORBIT_SIZE_SCALE = 6.0e7;
+const ORBIT_SIZE_DEF = 10;
+const ORBIT_DIST_SCALE = 4.0e7;
+const ORBIT_ROT_SCALE = 0.001;
+const ORBIT_SPEED_SCALE = 10;
+const ORBIT_ZOOM_SCALE = 10;
+const ORBIT_MAX_ZOOM = 500;
+
+const ORBIT_OSI_SCALE = 2;
+const ORBIT_ROT_CICLE = 0.66;
+const ORBIT_ANIM_MOVE = 500;
+
+const GLOB_VEL = 1;
+const GLOB_TIMER = 1;
+
+const PLANET_STROKE = 0;
+
+
+// GLOB VARIJABLE --------------------------------------------------------------------------
+
+
+
+// DEFINICIJE --------------------------------------------------------------------------
+	
+
+// INICIJALIZACIJA + DEFS --------------------------------------------------------------------------
+	
+// KOD ----------------------------------------------------------------------------------------
+
+</script>
+<script src="data/init.js" charset="utf-8"></script>
+<script src="data/mod1.js" charset="utf-8"></script>
+<script src="data/mod2.js" charset="utf-8"></script>
+<script src="data/mod0.js" charset="utf-8"></script>
+<script>
+
+window.onload = function () { g_allLoaded = true; }
+
+
+/*
+d3.json("world-110m.json", function(error, world) {
+	if (error) throw error;
+
+	var land = topojson.feature(world, world.objects.land);
+
+	var Earth = Root.children.append("g")
+		.attr("class", "Earth");
+	
+	var Sea = Earth.append("path")
+		.datum({type: "Sphere"})
+		.attr("fill","#003288")
+		.attr("d", path);
+		
+	var Rot = Earth.append("path")
+		.datum(land)
+		.attr("fill","#508820")
+		.attr("d", path);
+		
+    var Shadow = Earth.append("circle")
+         .attr("r",g_globusRadius)
+         .attr("cx",0)
+         .attr("cy",0)
+         .style("stroke","black")
+         .style("fill","url(#planetShadow)");	
+	
+	d3.timer(function(elapsed) {
+	g_globusAngle += GLOB_VEL;
+	projection.rotate([g_globusAngle,-10]);
+	Rot.attr("d", path);
+	Sea.attr("d",path);
+	Shadow.attr("r",g_globusRadius*g_globusScale);
+	
+	});
+});
+*/
+
+// FUNKCIJE --------------------------------------------------------------------------
+
+
+d3.timer(function(elapsed) {
+	
+	switch(g_viewMod){
+	case 0: 
+		//g_viewMod = 1;
+	break;
+	case 1:
+		TimerMod1();
+		break;
+	case 11:
+		TimerMod11();
+		break;
+	case 2:
+		TimerMod2();
+	break;
+	}
+});
+
+
+</script>
+ </body>
+</html>

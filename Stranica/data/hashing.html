@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Hashing!</title>
+        <style type="text/css">
+            body{ margin: 20px 10px 10px 10px; }
+        </style>
+        <script type="text/javascript" src="hash.js"></script>
+        <script type="text/javascript" >
+        function hashing(){
+                var x = document.form1.in.value;
+                document.getElementById("output").innerHTML = hex_md5(x)+"<br>";
+            }
+        </script>
+    </head>
+    <body>
+        <p>Unesi text:
+        <form name="form1">
+        <p><input id="in" type="text" name="text" value="tekst"><br>
+        <p><input type="button" name="button" value="Hash" onclick="hashing()"><br>
+        <p id="output"></p>
+        </form>
+    </body>
+</html>
