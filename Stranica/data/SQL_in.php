@@ -28,10 +28,10 @@ if ((($_FILES["file"]["type"] == "image/gif")
   }
 }
 }
-if(!($con = @mysql_connect("fdb5.biz.ht","1354734_web","a13s57d246")))
+if(!($con = @mysql_connect("*PRIVATE*","*PRIVATE*","*PRIVATE*")))
       $logerr = "Neuspjelo spajanje na MySQL!";
     mysql_set_charset('utf8',$con);
-  if(!@mysql_select_db("1354734_web") && !$logerr)
+  if(!@mysql_select_db("*PRIVATE*") && !$logerr)
       $logerr = "Neuspjelo spajanje na bazu podataka!";
     $Tpasswrd = md5(htmlspecialchars($_POST["regpasswrd"]).htmlspecialchars($_POST["regnick"]));
     $godinaz = htmlspecialchars($_POST['godina']);
@@ -39,7 +39,7 @@ if(!($con = @mysql_connect("fdb5.biz.ht","1354734_web","a13s57d246")))
     else { $pic = explode(".", $godinaz); $godinaz = $pic[2]."-".$pic[1]."-".$pic[0];}
     $query = "'".htmlspecialchars($_POST['regnick'])."','".htmlspecialchars($_POST['email'])."','".$Tpasswrd."',0,'".htmlspecialchars($_POST['ime']);
     $query = $query."','".htmlspecialchars($_POST['prezime'])."','".htmlspecialchars($_POST['slika'])."','".$godinaz."','".htmlspecialchars($_POST['adresa'])."'";
-   $query = "INSERT INTO 1354734_web.korisnik VALUES('',".$query.",'')";
+   $query = "INSERT INTO *PRIVATE*.korisnik VALUES('',".$query.",'')";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     else{

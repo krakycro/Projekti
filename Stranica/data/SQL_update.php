@@ -42,10 +42,10 @@ else {
 
 }
 
-if(!($con = @mysql_connect("fdb5.biz.ht","1354734_web","a13s57d246")))
+if(!($con = @mysql_connect("*PRIVATE*","*PRIVATE*","*PRIVATE*")))
       $logerr = "Neuspjelo spajanje na MySQL!";
     mysql_set_charset('utf8',$con);
-  if(!@mysql_select_db("1354734_web") && !$logerr)
+  if(!@mysql_select_db("*PRIVATE*") && !$logerr)
       $logerr = "Neuspjelo spajanje na bazu podataka!";
     if(strlen($_POST["inpasswrd"]) >= 4)
        $Tpasswrd = "', passwrd = '".md5(htmlspecialchars($_POST["inpasswrd"]).htmlspecialchars($_POST["innick"]))."'";
@@ -60,11 +60,11 @@ if(!($con = @mysql_connect("fdb5.biz.ht","1354734_web","a13s57d246")))
     $godinaz = $pic[2]."-".$pic[1]."-".$pic[0];
     $query = "nick = '".htmlspecialchars($_POST['innick'])."', email = '".htmlspecialchars($_POST['inemail']).$Tpasswrd.", ime = '".htmlspecialchars($_POST['inime']);
     $query = $query.basename("', prezime = '".htmlspecialchars($_POST['inprezime'])."', slika = '".$slkz."', godina = '".$godinaz."', adresa = '".htmlspecialchars($_POST['inadresa'])."'");
-   $query = "UPDATE 1354734_web.korisnik SET ".$query." WHERE 1354734_web.korisnik.nick = '".htmlspecialchars($_POST['oldnick'])."'";
+   $query = "UPDATE *PRIVATE*.korisnik SET ".$query." WHERE *PRIVATE*.korisnik.nick = '".htmlspecialchars($_POST['oldnick'])."'";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     else{
-      $query = "SELECT passwrd FROM 1354734_web.korisnik WHERE 1354734_web.korisnik.nick = '".htmlspecialchars($_POST['innick'])."'";
+      $query = "SELECT passwrd FROM *PRIVATE*.korisnik WHERE *PRIVATE*.korisnik.nick = '".htmlspecialchars($_POST['innick'])."'";
       if (!($q=@mysql_query($query)) && !$logerr)
           $logerr = "Neuspjelo slanje upita bazi!";
         if (@mysql_num_rows($q)==0 && !$logerr)

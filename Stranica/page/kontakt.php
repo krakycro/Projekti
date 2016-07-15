@@ -4,7 +4,7 @@ if(empty($block))
 
 $logerr = 0;
 $buff = array();
-   $query= "SELECT email FROM 1354734_web.korisnik WHERE 1354734_web.korisnik.nick = '".$_COOKIE['nick']."'";
+   $query= "SELECT email FROM *PRIVATE*.korisnik WHERE *PRIVATE*.korisnik.nick = '".$_COOKIE['nick']."'";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     if (@mysql_num_rows($q)==0 && !$logerr)

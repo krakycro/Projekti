@@ -29,12 +29,12 @@
     setcookie("passwrd", "", time()-900);
    }
    else{
-   if(!($con = @mysql_connect("fdb5.biz.ht","1354734_web","a13s57d246")))
+   if(!($con = @mysql_connect("*PRIVATE*","*PRIVATE*","*PRIVATE*")))
       $logerr = "Neuspjelo spajanje na MySQL!";
     mysql_set_charset('utf8',$con);
-  if(!@mysql_select_db("1354734_web") && !$logerr)
+  if(!@mysql_select_db("*PRIVATE*") && !$logerr)
       $logerr = "Neuspjelo spajanje na bazu podataka!";
-   $query= "SELECT * FROM 1354734_web.korisnik WHERE 1354734_web.korisnik.nick = '".$_COOKIE["nick"]."'";
+   $query= "SELECT * FROM *PRIVATE*.korisnik WHERE *PRIVATE*.korisnik.nick = '".$_COOKIE["nick"]."'";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     if (@mysql_num_rows($q)==0 && !$logerr)
@@ -46,7 +46,7 @@
         setcookie("nick", $_COOKIE["nick"], time()+900,'/');
         setcookie("passwrd", $_COOKIE["passwrd"], time()+900,'/');
         $loginz = true;
-        $query = "UPDATE 1354734_web.korisnik SET online = NOW() WHERE 1354734_web.korisnik.nick ='".$_COOKIE["nick"]."'";
+        $query = "UPDATE *PRIVATE*.korisnik SET online = NOW() WHERE *PRIVATE*.korisnik.nick ='".$_COOKIE["nick"]."'";
         if (!@mysql_query($query))
             $logerr = "Neuspjelo slanje upita bazi!";
         }
@@ -56,12 +56,12 @@
  }
  else if($kontrola == "login"){
    $Tpasswrd = md5($_POST["passwrd"].$_POST["nick"]);
-   if(!($con = @mysql_connect("fdb5.biz.ht","1354734_web","a13s57d246")))
+   if(!($con = @mysql_connect("*PRIVATE*","*PRIVATE*","*PRIVATE*")))
       $logerr = "Neuspjelo spajanje na MySQL!"; 
     mysql_set_charset('utf8',$con);
-  if(!@mysql_select_db("1354734_web") && !$logerr)
+  if(!@mysql_select_db("*PRIVATE*") && !$logerr)
       $logerr = "Neuspjelo spajanje na bazu podataka!";
-  $query= "SELECT * FROM 1354734_web.korisnik WHERE 1354734_web.korisnik.passwrd = '".$Tpasswrd."'";
+  $query= "SELECT * FROM *PRIVATE*.korisnik WHERE *PRIVATE*.korisnik.passwrd = '".$Tpasswrd."'";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     if (@mysql_num_rows($q)==0 && !$logerr)

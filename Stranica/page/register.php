@@ -292,7 +292,7 @@ Rješenje bez decimala:<input type="text" id="idcapcha" name="recapcha">
 $logerr = 0;
 $buff = array();
 echo '<form name="nicklist">';
-   $query= "SELECT nick FROM 1354734_web.korisnik WHERE 1";
+   $query= "SELECT nick FROM *PRIVATE*.korisnik WHERE 1";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     if (@mysql_num_rows($q)==0 && !$logerr)

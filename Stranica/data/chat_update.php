@@ -17,9 +17,9 @@ function login($base,$name,$pass,$table,$query){
 }
 if(!isset($_COOKIE["nick"]) || !isset($_COOKIE["passwrd"])) die();
 if($_REQUEST['input'] == "croom"){
-  $query = "SELECT DATE_FORMAT( datum,  '%d.%m.%Y' ) AS  'datumi', DATE_FORMAT( datum,  '%H:%i' ) AS  'time', nick, chatting, tekst, color, bgcolor FROM 1354734_web.chat,1354734_web.korisnik WHERE 1354734_web.chat.user = 1354734_web.korisnik.ID AND 1354734_web.chat.chatting = '".$_REQUEST['chat']."' ORDER BY datum,time ASC";
-  login("fdb5.biz.ht","1354734_web","a13s57d246","1354734_web",$query);
-  $query = "UPDATE 1354734_web.korisnik SET online = NOW() WHERE 1354734_web.korisnik.nick ='".$_COOKIE["nick"]."'";
+  $query = "SELECT DATE_FORMAT( datum,  '%d.%m.%Y' ) AS  'datumi', DATE_FORMAT( datum,  '%H:%i' ) AS  'time', nick, chatting, tekst, color, bgcolor FROM *PRIVATE*.chat,*PRIVATE*.korisnik WHERE *PRIVATE*.chat.user = *PRIVATE*.korisnik.ID AND *PRIVATE*.chat.chatting = '".$_REQUEST['chat']."' ORDER BY datum,time ASC";
+  login("*PRIVATE*","*PRIVATE*","*PRIVATE*","*PRIVATE*",$query);
+  $query = "UPDATE *PRIVATE*.korisnik SET online = NOW() WHERE *PRIVATE*.korisnik.nick ='".$_COOKIE["nick"]."'";
     if (!@mysql_query($query))
         $logerr = "Neuspjelo slanje upita bazi!";
   if(!$logerr){
@@ -36,8 +36,8 @@ if($_REQUEST['input'] == "croom"){
   } else return "NULL";
 }
 else if($_REQUEST['input'] == "cnick"){
-  $query = "SELECT nick FROM 1354734_web.korisnik WHERE DATE_ADD(1354734_web.korisnik.online,INTERVAL 2 DAY_SECOND) > NOW() ORDER BY nick ASC";
-  login("fdb5.biz.ht","1354734_web","a13s57d246","1354734_web",$query);
+  $query = "SELECT nick FROM *PRIVATE*.korisnik WHERE DATE_ADD(*PRIVATE*.korisnik.online,INTERVAL 2 DAY_SECOND) > NOW() ORDER BY nick ASC";
+  login("*PRIVATE*","*PRIVATE*","*PRIVATE*","*PRIVATE*",$query);
   if(!$logerr){
     $buffer = $buffer."<b>";
     while($redak = @mysql_fetch_array($q)){
@@ -49,11 +49,11 @@ else if($_REQUEST['input'] == "cnick"){
 
 }
 else if($_REQUEST['input'] == "ctype"){
-  $query = "SELECT ID FROM 1354734_web.korisnik WHERE 1354734_web.korisnik.nick = '".$_COOKIE["nick"]."'";
-  login("fdb5.biz.ht","1354734_web","a13s57d246","1354734_web",$query);
+  $query = "SELECT ID FROM *PRIVATE*.korisnik WHERE *PRIVATE*.korisnik.nick = '".$_COOKIE["nick"]."'";
+  login("*PRIVATE*","*PRIVATE*","*PRIVATE*","*PRIVATE*",$query);
   if(!$logerr){
     $redak = @mysql_fetch_array($q);
-    $query = "INSERT INTO 1354734_web.chat VALUES(NOW(),'".$redak['ID']."','".$_REQUEST['chat']."','".$_REQUEST['block']."','".$_REQUEST['color']."','".$_REQUEST['bgcolor']."')";
+    $query = "INSERT INTO *PRIVATE*.chat VALUES(NOW(),'".$redak['ID']."','".$_REQUEST['chat']."','".$_REQUEST['block']."','".$_REQUEST['color']."','".$_REQUEST['bgcolor']."')";
     if (!($q=@mysql_query($query)) && !$logerr)
           $logerr = "Neuspjelo slanje upita bazi!";
   } else return "NULL";

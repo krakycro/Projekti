@@ -3,7 +3,7 @@
 if(empty($block)) 
   header("Location: error.php");
   
-$query= "SELECT * FROM 1354734_web.korisnik WHERE 1354734_web.korisnik.nick ='".$_COOKIE['nick']."'";
+$query= "SELECT * FROM *PRIVATE*.korisnik WHERE *PRIVATE*.korisnik.nick ='".$_COOKIE['nick']."'";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     if (@mysql_num_rows($q)==0 && !$logerr)
@@ -227,7 +227,7 @@ function SubmitForm(forma){
 <h2>Lista korisnika</h2>
 </div>
 <?php
-  $query= "SELECT * FROM 1354734_web.korisnik WHERE 1";
+  $query= "SELECT * FROM *PRIVATE*.korisnik WHERE 1";
     if (!($q=@mysql_query($query)) && !$logerr)
         $logerr = "Neuspjelo slanje upita bazi!";
     if (@mysql_num_rows($q)==0 && !$logerr)
