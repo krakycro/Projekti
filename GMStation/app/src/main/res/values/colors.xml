@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ce2323</color>
+    <color name="colorPrimaryDark">#9f1f1f</color>
+    <color name="colorAccent">#ffffff</color>
+
+    <color name="DrawerHandle">#732114</color>
+    <color name="DrawerHandleMiddle">#85000000</color>
+
+    <color name="ShaderHalf">#30000000</color>
+    <color name="ShaderQuad">#10000000</color>
+    <color name="LighterHalf">#50ffffff</color>
+
+    <color name="SearchBox">#de534d</color>
+    <color name="NewBackground">#ef9a9a</color>
+    <color name="TabBackground">#ffffff</color>
+    <color name="ListBackground">#ede2e2</color>
+    <color name="ItemBodyBackground">#ffffff</color>
+    <color name="ItemMenuBackground">#b71c1c</color>
+
+
+
+</resources>

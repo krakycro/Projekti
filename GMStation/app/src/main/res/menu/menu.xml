@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="hr.etfos.kraky.gmstation">
+
+    <item
+        android:id="@+id/menu_search"
+        app:showAsAction="always"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:actionViewClass="android.widget.SearchView"/>
+
+    <item
+        android:id="@+id/menu_cyrcle"
+        app:showAsAction="always"
+        android:title="Next turn"
+        android:icon="@android:drawable/ic_menu_rotate"/>
+
+    <item
+        android:id="@+id/menu_init"
+        app:showAsAction="always"
+        android:title="Initiative"
+        android:icon="@android:drawable/ic_menu_revert"/>
+
+    <item
+        android:id="@+id/menu_sort"
+        app:showAsAction="always"
+        android:title="Sort Items"
+        android:icon="@android:drawable/ic_menu_sort_by_size"/>
+
+    <item
+        android:id="@+id/menu_ping"
+        app:showAsAction="always"
+        android:title="Get Devices"
+        android:icon="@android:drawable/ic_menu_share"/>
+
+    <item
+        android:id="@+id/menu_add"
+        app:showAsAction="always"
+        android:title="Add Item"
+        android:icon="@android:drawable/ic_menu_edit">
+
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/menu_group_rename"
+                    android:title="Rename" />
+
+                <item
+                    android:id="@+id/menu_group_add"
+                    android:title="Add Item" />
+
+                <item
+                    android:id="@+id/menu_group_del"
+                    android:title="Remove Item" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

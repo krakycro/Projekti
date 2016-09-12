@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/SearchBox"/>
+ <corners
+     android:bottomRightRadius="@dimen/item_drawer_image_size2"
+     android:bottomLeftRadius="@dimen/item_drawer_image_size2"
+     android:topLeftRadius="@dimen/item_drawer_image_size2"
+     android:topRightRadius="@dimen/item_drawer_image_size2"/>
+</shape>

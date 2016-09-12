@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">GMStation</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="list_items">
+        <item>Note</item>
+        <item>Text</item>
+        <item>Variable</item>
+    </string-array>
+
+    <string-array name="list_board">
+        <item>Board</item>
+        <item>Timers</item>
+    </string-array>
+
+    <string-array name="list_shortcut">
+        <item>Open</item>
+        <item>Remove</item>
+    </string-array>
+
+</resources>

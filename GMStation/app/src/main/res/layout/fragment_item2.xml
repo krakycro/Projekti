@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="@dimen/item_height"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/ItemBodyBackground">
+
+    <RelativeLayout
+        android:id="@+id/item_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/item_body"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ListBackground"/>
+
+        <RelativeLayout
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/drawer_handle_width"
+            android:layout_height="match_parent"
+            android:background="@color/DrawerHandle">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/drawer_handle_height"
+                android:layout_centerInParent="true"
+                android:background="@color/DrawerHandleMiddle"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/item_menu_casing"
+        android:layout_width="@dimen/item_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:background="@color/ItemMenuBackground">
+
+        <FrameLayout
+            android:id="@+id/item_menu"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+</LinearLayout>

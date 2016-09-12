@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/item_box"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/item_picbox"
+            android:clickable="true"
+            android:layout_width="@dimen/item_drawer_image_size15"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp">
+
+            <include layout="@layout/alert_button_img"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_toEndOf="@id/item_picbox"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/ShaderHalf"/>
+
+        <EditText
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/item_uni_edit"
+            android:layout_width="@dimen/item_drawer_image_size15"
+            android:layout_height="wrap_content"
+            android:hint="0"
+            android:gravity="center"
+            android:inputType="number|numberDecimal" />
+
+        <TextView
+            android:layout_toEndOf="@id/item_picbox"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/item_uni_edit"
+            android:paddingLeft="10dp"
+            android:id="@+id/item_uni_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/MyTextList" />
+
+        <FrameLayout
+            android:layout_toLeftOf="@id/item_uni_edit"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/ShaderHalf"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
