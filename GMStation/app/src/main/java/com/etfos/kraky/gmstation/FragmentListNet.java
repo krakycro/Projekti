@@ -13,7 +13,7 @@ public class FragmentListNet extends ObjectListFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
+/*
                 AdapterDB.ArrayCursor AC = new AdapterDB.ArrayCursor();
                 TableItem TI = (TableItem) getDBase().StartArrayCursorLoadDB(ObjectDB.TABLE_ITEM, AC,  TableItem.POSS+" ASC", null, TableItem.MENU+"="+getID());
                 Log.i("DB itemLock init-id",getName()+"-"+getID());
@@ -27,7 +27,15 @@ public class FragmentListNet extends ObjectListFragment {
 
 
             }}).start();
+
+
+
 */
+        getAdapter().notifyDataSetChanged();
+    }
+
+    public void addItem(){
+        getLIST().add(new PageItemNet(getContext(),getCL()).init());
     }
 
 

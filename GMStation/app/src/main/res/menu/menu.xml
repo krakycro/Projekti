@@ -30,10 +30,16 @@
         android:icon="@android:drawable/ic_menu_sort_by_size"/>
 
     <item
+        android:id="@+id/menu_brodcast"
+        app:showAsAction="always"
+        android:title="Broadcast"
+        android:icon="@android:drawable/ic_menu_share"/>
+
+    <item
         android:id="@+id/menu_ping"
         app:showAsAction="always"
         android:title="Get Devices"
-        android:icon="@android:drawable/ic_menu_share"/>
+        android:icon="@android:drawable/ic_menu_myplaces"/>
 
     <item
         android:id="@+id/menu_add"

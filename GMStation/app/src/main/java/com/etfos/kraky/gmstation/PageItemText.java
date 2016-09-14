@@ -3,7 +3,6 @@ package com.etfos.kraky.gmstation;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -55,7 +54,7 @@ public class PageItemText extends ObjectItem {
                                 //
                                 setBundle(ET.getText().toString());
                                 getDBase().updateDB(ObjectDB.TABLE_RESS,new TableResource().Init(getID(),null,getBundle(),null));
-                                Log.i("DBitem upd id",getID()+","+getName()+","+getBundle()+","+getPicture());
+                               // Log.i("DBitem upd id",getID()+","+getName()+","+getBundle()+","+getPicture());
                             }
                         })
                         .setNegativeButton("Back", null)

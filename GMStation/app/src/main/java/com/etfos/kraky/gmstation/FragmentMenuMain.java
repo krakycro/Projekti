@@ -21,8 +21,6 @@ public class FragmentMenuMain extends ObjectMenuFragment {
     public final static int  TIMER_INDEX = 2;
     public final static int  LAN_INDEX = 3;
 
-    //Handler H = new Handler();
-
     public class ItemRem extends ObjectListener{
 
         public ItemRem(){}
@@ -47,11 +45,11 @@ public class FragmentMenuMain extends ObjectMenuFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             switch(which){
-                                case 0:
+                                /*case 0:
                                     root.GoTo(board, tab);
                                     Log.i("Shorcut goto",board+", "+tab);
-                                    break;
-                                case 1:
+                                    break;*/
+                                case 0://case 1:
                                     getDBase().deleteDB(ObjectDB.TABLE_ITEM,new TableItem().Init(TI.getId(),0,0,0,0));
                                     root.PAdapter.notifyDataSetChanged();
                                     Log.i("Shorcut dell",TI.getId()+"");
@@ -82,7 +80,7 @@ public class FragmentMenuMain extends ObjectMenuFragment {
         }
         setFLIST(new ArrayList<ObjectListFragment>());
         CL.setTab(FragmentMenuMain.BOARD_INDEX);
-        getFLIST().add(new FragmentListMess().init( "Board",ID,CL).addID(BOARD));
+        getFLIST().add(new FragmentListMess().init( "Pinboard",ID,CL).addID(BOARD));
         CL.setTab(FragmentMenuMain.INIT_INDEX);
         getFLIST().add(new FragmentListInit().init( "Initiative",ID,CL).addID(INIT));
         CL.setTab(FragmentMenuMain.TIMER_INDEX);

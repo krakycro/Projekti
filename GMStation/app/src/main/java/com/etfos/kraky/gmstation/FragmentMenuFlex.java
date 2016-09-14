@@ -3,16 +3,13 @@ package com.etfos.kraky.gmstation;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 
 public class FragmentMenuFlex extends ObjectMenuFragment {
 
-    Handler H = new Handler();
     public class ItemAdd extends ObjectListener{
 
         public ItemAdd(){
@@ -53,7 +50,7 @@ public class FragmentMenuFlex extends ObjectMenuFragment {
                                     break;
                             }
 
-                            Log.i("Shorcut add",TI.getId()+","+pick+","+TI.getRess()+","+TI.getType()+","+TI.getPoss());
+                            //Log.i("Shorcut add",TI.getId()+","+pick+","+TI.getRess()+","+TI.getType()+","+TI.getPoss());
                             //Toast.makeText(getActivity())
 
                         }
@@ -84,13 +81,13 @@ public class FragmentMenuFlex extends ObjectMenuFragment {
         //new Thread(new Runnable() {
         //    @Override
         //    public void run() {
-        Log.i("DB load menu", ID+"");
+        //Log.i("DB load menu", ID+"");
                 TableMenu TM = (TableMenu) getDBase().StartCursorLoadDB(ObjectDB.TABLE_MENU,null,null,TableMenu.MENU+"="+ID);
                     while (TM != null) {
                         CL.setTab(getFLIST().size());
                         ObjectListFragment FLM = new FragmentListMess().init( TM.getName(), TM.getMenu(), CL);
                         FLM.setID(TM.getId());
-                        Log.i("DB load tab id-rot:CL",TM.getId()+"-"+ID+":"+FLM.getCL().board+"-"+FLM.getCL().tab+"-"+FLM.getCL().TI.getMenu());
+                        //Log.i("DB load tab id-rot:CL",TM.getId()+"-"+ID+":"+FLM.getCL().board+"-"+FLM.getCL().tab+"-"+FLM.getCL().TI.getMenu());
                         getFLIST().add(FLM);
                         TM = (TableMenu) getDBase().CursorGetRowDB(ObjectDB.TABLE_MENU);
                     }
@@ -99,7 +96,7 @@ public class FragmentMenuFlex extends ObjectMenuFragment {
                     CL.setTab(0);
                     ObjectListFragment FLM = new FragmentListMess().init("New",ID,CL);
                     FLM.setID(getDBase().addDB(ObjectDB.TABLE_MENU,new TableMenu().Init(0, FLM.getName(), FLM.getParent())));
-                    Log.i("pstDB empty,ad id-rt:CL",FLM.getID()+"-"+ID+":"+FLM.getCL().board+"-"+FLM.getCL().tab+"-"+FLM.getCL().TI.getMenu());
+                   // Log.i("pstDB empty,ad id-rt:CL",FLM.getID()+"-"+ID+":"+FLM.getCL().board+"-"+FLM.getCL().tab+"-"+FLM.getCL().TI.getMenu());
                     getFLIST().add(FLM);
                 }
                 /*H.post(new Runnable() {

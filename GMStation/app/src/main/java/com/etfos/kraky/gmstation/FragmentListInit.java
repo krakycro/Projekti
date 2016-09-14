@@ -1,7 +1,5 @@
 package com.etfos.kraky.gmstation;
 
-import android.util.Log;
-
 public class FragmentListInit extends ObjectListFragment {
 
     @Override
@@ -11,22 +9,22 @@ public class FragmentListInit extends ObjectListFragment {
         //
         // INIT LIST LOCK
         //
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run() {*/
                 AdapterDB.ArrayCursor AC = new AdapterDB.ArrayCursor();
                 TableItem TI = (TableItem) getDBase().StartArrayCursorLoadDB(ObjectDB.TABLE_ITEM, AC,  TableItem.POSS+" ASC", null, TableItem.MENU+"="+getID());
-                    Log.i("DB itemLock init-id",getName()+"-"+getID());
+                    //Log.i("DB itemLock init-id",getName()+"-"+getID());
 
                     while (TI != null) {
-                        Log.i("DB adding item id-paren",TI.getId()+"-"+TI.getMenu());
+                        //Log.i("DB adding item id-paren",TI.getId()+"-"+TI.getMenu());
                         addItem((int)TI.getType(),TI);
                         TI = (TableItem) getDBase().ArrayCursorGetRowDB(ObjectDB.TABLE_ITEM,AC);
                     }
                     getDBase().ArrayCursorCloseDB(AC);
 
 
-            }}).start();
+           // }}).start();
         // Zamijeniti?
         //Log.i("RESUME","sorter1");
 

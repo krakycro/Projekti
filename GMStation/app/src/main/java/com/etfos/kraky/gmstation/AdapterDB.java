@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Handler;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -201,7 +200,7 @@ public class AdapterDB extends SQLiteOpenHelper {
         final ContentValues tcv = new ContentValues();
         tcv.putAll( MT.add());
         long ii = tdb.insert(DB.get(index).TABLE, DB.get(index).ITEM_ID, tcv);
-        Log.i("DB add id", ii+"");
+        //Log.i("DB add id", ii+"");
         return ii;
     }
 
@@ -213,7 +212,7 @@ public class AdapterDB extends SQLiteOpenHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("DB del id-numb",DL.getId()+"-"+tdb.delete(DB.get(index).TABLE, DB.get(index).ITEM_ID + "=?", targ)+"");
+                //Log.i("DB del id-numb",DL.getId()+"-"+tdb.delete(DB.get(index).TABLE, DB.get(index).ITEM_ID + "=?", targ)+"");
             }
         }).start();
         return true;
@@ -242,7 +241,7 @@ public class AdapterDB extends SQLiteOpenHelper {
             public void run() {
                 tcv.putAll(DL.update());
                 tdb.update(DB.get(index).TABLE, tcv, DB.get(index).ITEM_ID + "=?", targ);
-                Log.i("DB upd id-numb",DL.getId()+"");
+                //Log.i("DB upd id-numb",DL.getId()+"");
             }
         }).start();
         return true;
@@ -257,7 +256,7 @@ public class AdapterDB extends SQLiteOpenHelper {
 
                 tcv.putAll(DL.update());
                 tdb.update(DB.get(index).TABLE, tcv, DB.get(index).ITEM_ID + "=?", targ);
-                Log.i("DB upd id-numb",DL.getId()+"-"+((TableItem)DL).getPoss());
+               // Log.i("DB upd id-numb",DL.getId()+"-"+((TableItem)DL).getPoss());
 
         return true;
     }

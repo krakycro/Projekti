@@ -1,7 +1,6 @@
 package com.etfos.kraky.gmstation;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -26,14 +25,14 @@ public class PageItemVar extends ObjectItem {
         getMenu().addView(MenuView);
         InitMenu();
 
-        getBody().setOnClickListener(new FrameLayout.OnClickListener() {
+       /* getBody().setOnClickListener(new FrameLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.i("KRAKY: Click", "body");
+               // Log.i("KRAKY: Click", "body");
 
             }
-        });
+        });*/
 
         final EditText IV = (EditText) getBody().findViewById(R.id.item_uni_edit);
 
@@ -53,7 +52,7 @@ public class PageItemVar extends ObjectItem {
 
                     ActivityMain.getROOT(null).GoTo();
 
-                    Log.i("DBitem upd id",getID()+"");
+                    //Log.i("DBitem upd id",getID()+"");
                 }
             }
         });

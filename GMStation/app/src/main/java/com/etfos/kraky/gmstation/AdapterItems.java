@@ -1,7 +1,6 @@
 package com.etfos.kraky.gmstation;
 
 import android.content.Context;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,12 +17,15 @@ public class AdapterItems extends BaseAdapter implements AdapterView.OnItemSelec
     private Context ctx;
 
     private ArrayList<ObjectItem> LIST;
-    private final Handler H = new Handler();
+    private ArrayList<ObjectItem> SEARCH;
+    private boolean sflag = false;
+    //private final Handler H = new Handler();
 
 
-    public AdapterItems(Context ctx, ArrayList<ObjectItem> LIST) {
+    public AdapterItems(Context ctx, ArrayList<ObjectItem> LIST, ArrayList<ObjectItem> SEARCH) {
         this.ctx = ctx;
         this.LIST = LIST;
+        this.SEARCH = SEARCH;
     }
 
     public void sorter(int flag){
@@ -65,6 +67,24 @@ public class AdapterItems extends BaseAdapter implements AdapterView.OnItemSelec
         this.notifyDataSetChanged();
     }
 
+
+    public void notifySearchDataSetChanged( String item) {
+        if(item == null || item.length() < 1){
+            sflag = false;
+        }
+        else{
+            sflag = true;
+            SEARCH.clear();
+
+            if(LIST.size()> 1)
+                for(int i = 0 ; i < LIST.size()-1; i++){
+                    if(LIST.get(i).getName().contains(item))
+                        SEARCH.add(LIST.get(i));
+                }
+        }
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
@@ -72,12 +92,18 @@ public class AdapterItems extends BaseAdapter implements AdapterView.OnItemSelec
 
     @Override
     public int getCount() {
-        return this.LIST.size();
+        if(sflag)
+            return  this.SEARCH.size();
+        else
+            return this.LIST.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return this.LIST.get(position);
+        if(sflag)
+            return  this.SEARCH.get(position);
+        else
+            return this.LIST.get(position);
     }
 
     @Override
@@ -87,7 +113,11 @@ public class AdapterItems extends BaseAdapter implements AdapterView.OnItemSelec
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ObjectItem currList = this.LIST.get(position);
+        ObjectItem currList;
+        if(sflag)
+            currList = this.SEARCH.get(position);
+        else
+            currList = this.LIST.get(position);
 
         return currList.getView();
     }
@@ -115,6 +145,11 @@ public class AdapterItems extends BaseAdapter implements AdapterView.OnItemSelec
     public void onNothingSelected(AdapterView<?> parent)
     {
         parent.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+    }
+
+    public void setSflag(boolean sflag) {
+        this.sflag = sflag;
+        this.notifyDataSetChanged();
     }
 }
 

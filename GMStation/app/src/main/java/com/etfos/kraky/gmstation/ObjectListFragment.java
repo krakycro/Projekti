@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ public class ObjectListFragment extends Fragment {
     private Handler H = new Handler();
     private ListView List;
     private ArrayList<ObjectItem> LIST;
+    private ArrayList<ObjectItem> SEARCH;
     private AdapterItems Adapter;
     private ObjectListener CL;
     private AdapterDB DBase;
@@ -48,8 +48,9 @@ public class ObjectListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        setLIST(new ArrayList<ObjectItem>());
-        setAdapter(new AdapterItems(getContext(),getLIST()));
+        LIST = new ArrayList<>();
+        SEARCH = new ArrayList<>();
+        setAdapter(new AdapterItems(getContext(),LIST,SEARCH));
 
         setList((ListView) getView().findViewById(R.id.list));
         getList().setAdapter(getAdapter());
@@ -87,7 +88,7 @@ public class ObjectListFragment extends Fragment {
             }
         });
         LIST.add(IN);
-        Adapter.notifyDataSetChanged();
+        Adapter.notifySearchDataSetChanged(ActivityMain.getROOT(null).SEARCH);
     }
 
     public void initNewConst(){
@@ -103,7 +104,7 @@ public class ObjectListFragment extends Fragment {
             }
         });
         LIST.add(IN);
-        Adapter.notifyDataSetChanged();
+        Adapter.notifySearchDataSetChanged(ActivityMain.getROOT(null).SEARCH);
     }
 
 
@@ -122,7 +123,7 @@ public class ObjectListFragment extends Fragment {
                 break;
         }
         OI.setType(which);
-        OI.setBundle("0");
+        OI.setBundle("");
         OI.setPosition(LIST.size());
         //
         // ADD LIST
@@ -133,7 +134,7 @@ public class ObjectListFragment extends Fragment {
             TR.setId(DBase.addDB(ObjectDB.TABLE_ITEM, new TableItem().Init(0, getID(),OI.getID(),OI.getType(), OI.getPosition())));
             OI.setParent(TR.getId());
 
-            Log.i("DB add item id-re-pa-nm",OI.getID()+"-"+TR.getId()+"-"+getID()+"-"+LIST.size());
+            //Log.i("DB add item id-re-pa-nm",OI.getID()+"-"+TR.getId()+"-"+getID()+"-"+LIST.size());
         }
         else{
             num =0;
@@ -145,7 +146,7 @@ public class ObjectListFragment extends Fragment {
             OI.setBundle(TR.getBody());
             OI.setPicture(TR.getIcon());
             OI.setPosition(TI.getPoss());
-            Log.i("DB load item info",TR.getITEM_ID()+"="+TI.getRess()+"  "+OI.getType()+","+OI.getName()+","+OI.getBundle()+","+OI.getPicture()+","+OI.getPosition());
+            //Log.i("DB load item info",TR.getITEM_ID()+"="+TI.getRess()+"  "+OI.getType()+","+OI.getName()+","+OI.getBundle()+","+OI.getPicture()+","+OI.getPosition());
         }
 
         OI.init();
@@ -192,10 +193,10 @@ public class ObjectListFragment extends Fragment {
                                 //
                                 TableResource TR = new TableResource();
                                 DBase.deleteDB(ObjectDB.TABLE_ITEM, new TableItem().Init(ID.getParent(), 0,0,0,0));
-                                Log.i("DB del item parent",ID.getParent()+"");
+                                //Log.i("DB del item parent",ID.getParent()+"");
                                 if(DBase.StartCursorLoadDB(ObjectDB.TABLE_ITEM) == null){
                                     DBase.deleteDB(ObjectDB.TABLE_RESS, TR.Init(ID.getID(), null,null,null));
-                                    Log.i("DB del item id",ID.getID()+"");
+                                    //Log.i("DB del item id",ID.getID()+"");
                                 }
                                 DBase.CursorCloseDB(ObjectDB.TABLE_ITEM);
 
@@ -219,42 +220,50 @@ public class ObjectListFragment extends Fragment {
 
                 if(LIST.indexOf(AOI)>0){
 
-                    long tmp = AOI.getPosition();
-                    ObjectItem tmpOI = LIST.get(LIST.indexOf(AOI)-1);
-                    AOI.setPosition(tmpOI.getPosition());
-                    tmpOI.setPosition(tmp);
+                    int i = LIST.indexOf(AOI);
+                    int j = i-1;
 
-                    //LIST.set(LIST.indexOf(AOI),LIST.set(LIST.indexOf(AOI)-1,AOI));
+                    long tmp = LIST.get(i).getPosition();
+                    getDBase().updateWaitDB(TableItem.TABLE_ITEM, new TableItem().Init(LIST.get(i).getParent(), ObjectDB.NULL, ObjectDB.NULL, ObjectDB.NULL, LIST.get(j).getPosition()));
+                    getDBase().updateWaitDB(TableItem.TABLE_ITEM, new TableItem().Init(LIST.get(j).getParent(), ObjectDB.NULL, ObjectDB.NULL, ObjectDB.NULL, tmp));
+                    LIST.get(i).setPosition(LIST.get(j).getPosition());
+                    LIST.get(j).setPosition(tmp);
+
+                    LIST.set(LIST.indexOf(AOI),LIST.set(LIST.indexOf(AOI)-1,AOI));
                     RefreshList();//Adapter.notifyDataSetChanged();
                 }
             }
         });
-
+        final int anum = num;
         ImageButton IVD = (ImageButton) OI.getView().findViewById(R.id.item_menu_down);
         if(IVU != null)
         IVD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(LIST.indexOf(AOI)<LIST.size()-2){
+                if(LIST.indexOf(AOI)<LIST.size()-anum-1){
 
-                    long tmp = AOI.getPosition();
-                    ObjectItem tmpOI = LIST.get(LIST.indexOf(AOI)+1);
-                    AOI.setPosition(tmpOI.getPosition());
-                    tmpOI.setPosition(tmp);
+                    int i = LIST.indexOf(AOI);
+                    int j = i+1;
 
-                    //LIST.set(LIST.indexOf(AOI),LIST.set(LIST.indexOf(AOI)+1,AOI));
+                    long tmp = LIST.get(i).getPosition();
+                    getDBase().updateWaitDB(TableItem.TABLE_ITEM, new TableItem().Init(LIST.get(i).getParent(), ObjectDB.NULL, ObjectDB.NULL, ObjectDB.NULL, LIST.get(j).getPosition()));
+                    getDBase().updateWaitDB(TableItem.TABLE_ITEM, new TableItem().Init(LIST.get(j).getParent(), ObjectDB.NULL, ObjectDB.NULL, ObjectDB.NULL, tmp));
+                    LIST.get(i).setPosition(LIST.get(j).getPosition());
+                    LIST.get(j).setPosition(tmp);
+
+                    LIST.set(LIST.indexOf(AOI),LIST.set(LIST.indexOf(AOI)+1,AOI));
                     RefreshList();//Adapter.notifyDataSetChanged();
                 }
             }
         });
 
         //Log.i("DB addItem",getParent()+","+TR.getId()+","+OI.getType());
-        final int anum = num;
+
         H.post(new Runnable() {
             @Override
             public void run() {
                 LIST.add(LIST.size()-anum,AOI);
-                Adapter.notifyDataSetChanged();
+                Adapter.notifySearchDataSetChanged(ActivityMain.getROOT(null).SEARCH);
             }
         });
 

@@ -1,7 +1,6 @@
 package com.etfos.kraky.gmstation;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -28,14 +27,14 @@ public class PageItemNote extends ObjectItem {
         InitMenu();
 
 
-        getBody().setOnClickListener(new FrameLayout.OnClickListener() {
+        /*getBody().setOnClickListener(new FrameLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.i("KRAKY: Click", "body");
+                //Log.i("KRAKY: Click", "body");
 
             }
-        });
+        });*/
 
         return this;
     }

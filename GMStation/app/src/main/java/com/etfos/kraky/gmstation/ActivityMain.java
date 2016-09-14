@@ -1,7 +1,11 @@
 package com.etfos.kraky.gmstation;
 
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,7 +15,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,6 +39,7 @@ public class ActivityMain extends AppCompatActivity {
     public final static int PLAYERS = 1;
     public final static int MONSTERS = 2;
     public final static int CONNECT = 3;
+    public final static int INFO = 4;
 
     private static ActivityMain aInst = null;
     private static boolean refreshing = false;
@@ -53,9 +60,28 @@ public class ActivityMain extends AppCompatActivity {
     private int menuStyle = 0;
     private long IDnext = 10;
     private  CharSequence MainTitle;
+    public String SEARCH = null;
 
     private static ObjectMenuFragment Selected;
     public LayoutInflater INFLATER;
+
+    AdapterBluetooth ABlue;
+
+    private final BroadcastReceiver Reciver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                ABlue.getLIST().add(new AdapterBluetooth.BGroup(device.getName(),device.getAddress()));
+                PageItemNet PI = new PageItemNet(getBaseContext(),LIST.get(CONNECT).getFLIST().get(0).getCL());
+                PI.init();
+                LIST.get(CONNECT).getFLIST().get(0).getLIST().add(PI);
+                LIST.get(CONNECT).getFLIST().get(0).getAdapter().notifyDataSetChanged();
+                Log.i("BT","find!");
+            }
+        }
+    };
+
 
     //private  Handler H = new Handler();
 
@@ -87,24 +113,55 @@ public class ActivityMain extends AppCompatActivity {
     private void Init(){
         AM = getBaseContext().getAssets();
         DBase = AdapterDB.InitDB(this);
-        Log.i("INIT","start");
+        ABlue = new AdapterBluetooth(this);
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver( Reciver, filter);
+       // Log.i("INIT","start");
         LIST = new ArrayList<ObjectMenuFragment>();
-        LIST.add(new FragmentMenuMain().setName("Board").init( BOARD, this, android.R.drawable.ic_menu_myplaces));
+        LIST.add(new FragmentMenuMain().setName("Board").init( BOARD, this, android.R.drawable.ic_menu_today));
         LIST.add(new FragmentMenuFlex().setName("Players").init( PLAYERS,  android.R.drawable.ic_menu_my_calendar));
         LIST.add(new FragmentMenuFlex().setName("Monsters").init( MONSTERS, android.R.drawable.ic_menu_mylocation));
-        LIST.add(new FragmentMenuNet().setName("Connect").init( CONNECT, android.R.drawable.ic_menu_compass));
-        Log.i("INIT","finish");
+        //LIST.add(new FragmentMenuNet().setName("Connect").init( CONNECT, ABlue.getLIST(), android.R.drawable.ic_menu_compass));
+        LIST.add(new FragmentMenuInfo().setName("Info").init( INFO, android.R.drawable.ic_menu_info_details));
+       // Log.i("INIT","finish");
         VPager = (ViewPager) findViewById(R.id.pager);
         TLayout = (TabLayout) findViewById(R.id.tab);
 
         INFLATER = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View Search = INFLATER.inflate(R.layout.layout_searchbox, null);
-        FrameLayout FL = (FrameLayout) findViewById(R.id.main_searchbox);
-        FL.addView(Search);
 
+        InitSearch();
         InitCategory();
         InitMenu();
         InitBoard(0);
+    }
+
+    private void InitSearch(){
+        View Search = INFLATER.inflate(R.layout.layout_searchbox, null);
+        FrameLayout FL = (FrameLayout) findViewById(R.id.main_searchbox);
+
+        EditText ET = (EditText) Search.findViewById(R.id.search_text);
+
+        ET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() > 0)
+                    SEARCH = s.toString();
+                else SEARCH = null;
+                GoTo();
+                Log.i("Srch","changing: "+s);
+            }
+        });
+
+        FL.addView(Search);
     }
 
     private void InitCategory(){
@@ -130,21 +187,26 @@ public class ActivityMain extends AppCompatActivity {
     public void GoTo(int position, int item){
         MList.setSelection(position);
         AMenu.notifyDataSetChanged();
-        Log.i("goto MENU",position+"");
-        Selected = LIST.get(position);
-        MainTitle = Selected.getName();
-        if(LIST.get(position).getClass() == FragmentMenuMain.class)
-            menuStyle = 0;
-        else if(LIST.get(position).getClass() == FragmentMenuNet.class)
-            menuStyle = 2;
-        else menuStyle = 1;
-        findViewById(R.id.main_fragment).animate().translationY(0);
-        search = false;
-        DLayout.closeDrawer(Gravity.LEFT);
+        //Log.i("goto MENU",position+"");
+
+        if(Selected != LIST.get(position)){
+            Selected = LIST.get(position);
+            MainTitle = Selected.getName();
+            if(LIST.get(position).getClass() == FragmentMenuMain.class)
+                menuStyle = 0;
+            else if(LIST.get(position).getClass() == FragmentMenuNet.class)
+                menuStyle = 2;
+            else if(LIST.get(position).getClass() == FragmentMenuInfo.class)
+                menuStyle = 3;
+            else
+                menuStyle = 1;
+            findViewById(R.id.main_fragment).animate().translationY(0);
+            search = false;
+            DLayout.closeDrawer(Gravity.LEFT);
+        }
 
         InitBoard(item);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
         AMenu.notifyDataSetChanged();
 
     }
@@ -158,7 +220,7 @@ public class ActivityMain extends AppCompatActivity {
 
     private void InitBoard(int item){
 
-        PAdapter = new AdapterPage(getSupportFragmentManager(), getBaseContext() ,Selected.getFLIST());
+        PAdapter = new AdapterPage(getSupportFragmentManager(),Selected.getFLIST());
         VPager.setAdapter(PAdapter);
         TLayout.setupWithViewPager(VPager);
         VPager.setCurrentItem(item);
@@ -218,12 +280,12 @@ public class ActivityMain extends AppCompatActivity {
         switch (id){
             case R.id.menu_search:
                 LinearLayout FL = (LinearLayout) findViewById(R.id.main_fragment);
-                if((search = !search))
-                    if(menuStyle == 0)
+                if((search = !search)) {
+                    //if(menuStyle == 0)
                         FL.animate().translationY(findViewById(R.id.search_text).getHeight()*1.4f);
-                    else
-                        FL.animate().translationY(findViewById(R.id.main_searchbox).getHeight());
-                else
+                    //else
+                    //FL.animate().translationY(findViewById(R.id.main_searchbox).getHeight());
+                }else
                     FL.animate().translationY(0);
                 break;
             case R.id.menu_sort:
@@ -260,11 +322,14 @@ public class ActivityMain extends AppCompatActivity {
 
                     TableResource TR = new TableResource();
                     TR = (TableResource) DBase.getDB(ObjectDB.TABLE_RESS,new AdapterDB.ArrayCursor(),null, null, TR.ITEM_ID+"="+TI.getRess() );
-                    int nmb = Integer.parseInt(TR.getBody())-1;
-                    if(nmb < 0) nmb = 0;
-                    TR.setBody(nmb+"");
+                    if(TR.getBody().length() <1) TR.setBody("0");
+                    else {
+                        int nmb = Integer.parseInt(TR.getBody())-1;
+                        if(nmb < 0) nmb = 0;
+                        TR.setBody(nmb+"");
+                    }
                     DBase.updateDB(ObjectDB.TABLE_RESS, new TableResource().Init(TR.getId(),TR.getName(),TR.getBody(),TR.getIcon()));
-                    Log.i("pstDB cycl timer id-id",TR.getId()+"-"+TI.getRess()+","+TR.getBody());
+                    //Log.i("pstDB cycl timer id-id",TR.getId()+"-"+TI.getRess()+","+TR.getBody());
                     TI = (TableItem) DBase.CursorGetRowDB(ObjectDB.TABLE_ITEM);
                 }
                 DBase.CursorCloseDB(ObjectDB.TABLE_ITEM);
@@ -290,7 +355,7 @@ public class ActivityMain extends AppCompatActivity {
                                 OI = DBase.addDB(ObjectDB.TABLE_RESS, new TableResource().Init(0, Selected.getFLIST().get(TLayout.getSelectedTabPosition()).getName(),input.getEditableText().toString(),null));
                                 TR = DBase.addDB(ObjectDB.TABLE_ITEM, new TableItem().Init(0, FragmentMenuMain.INIT,OI,ObjectItem.VAR, LIST.get(BOARD).getFLIST().get(FragmentMenuMain.INIT_INDEX).getLIST().size()));
                                 DBase.updateDB(ObjectDB.TABLE_ITEM,new TableItem().Init(TR, ObjectDB.NULL,ObjectDB.NULL,ObjectDB.NULL,TR));
-                                Log.i("pstDB add inita id-ress",TR+"-"+OI);
+                               // Log.i("pstDB add inita id-ress",TR+"-"+OI);
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -313,7 +378,7 @@ public class ActivityMain extends AppCompatActivity {
                                 FLM.reName(input.getEditableText().toString());
                                 DBase.updateDB(ObjectDB.TABLE_MENU,new TableMenu().Init(FLM.getID(),FLM.getName(),ObjectDB.NULL));
                                 PAdapter.notifyDataSetChanged();
-                                Log.i("pstDB upd id",FLM.getID()+"");
+                              //  Log.i("pstDB upd id",FLM.getID()+"");
                             }
                         })
                         .setNegativeButton("Back", null)
@@ -335,7 +400,7 @@ public class ActivityMain extends AppCompatActivity {
                                 Selected.getFLIST().add(FLM);
                                 PAdapter.notifyDataSetChanged();
                                 VPager.setCurrentItem(TLayout.getTabCount());
-                                Log.i("pstDB add tab id-par",FLM.getID()+"-"+FLM.getParent());
+                               // Log.i("pstDB add tab id-par",FLM.getID()+"-"+FLM.getParent());
                             }
                         })
                         .setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -361,7 +426,7 @@ public class ActivityMain extends AppCompatActivity {
                                     FLM =  new FragmentListMess().init( "New",Selected.getID(),Selected.CL);
                                     FLM.setID(DBase.addDB(ObjectDB.TABLE_MENU,new TableMenu().Init(0, FLM.getName(),FLM.getParent())));
                                     Selected.getFLIST().add(FLM);
-                                    Log.i("pstDB del tab id",FLM.getID()+"");
+                                  //  Log.i("pstDB del tab id",FLM.getID()+"");
                                 }
                                 PAdapter.notifyDataSetChanged();
 
@@ -372,6 +437,20 @@ public class ActivityMain extends AppCompatActivity {
                             }
                         }).create().show();
                 break;
+            case R.id.menu_brodcast:
+                /*Intent discoverableIntent = new
+                        Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+                startActivity(discoverableIntent);*/
+                ABlue.checkBTState();
+
+                Log.i("BT","ping");
+                break;
+            case R.id.menu_ping:
+                //
+                // PLAYER Conn
+                //
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -380,35 +459,47 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = DLayout.isDrawerOpen(Gravity.LEFT);
-        menu.findItem(R.id.menu_search).setVisible(false);
-        menu.findItem(R.id.menu_add).setVisible(!drawerOpen);
-        menu.findItem(R.id.menu_cyrcle).setVisible(!drawerOpen);
-        menu.findItem(R.id.menu_init).setVisible(!drawerOpen);
-        menu.findItem(R.id.menu_ping).setVisible(!drawerOpen);
-        menu.findItem(R.id.menu_sort).setVisible(!drawerOpen);
+
         switch (menuStyle){
             case 0:
+                menu.findItem(R.id.menu_search).setVisible(!drawerOpen);
                 menu.findItem(R.id.menu_add).setVisible(false);
+                menu.findItem(R.id.menu_cyrcle).setVisible(!drawerOpen);
                 menu.findItem(R.id.menu_init).setVisible(false);
                 menu.findItem(R.id.menu_ping).setVisible(false);
+                menu.findItem(R.id.menu_sort).setVisible(!drawerOpen);
+                menu.findItem(R.id.menu_brodcast).setVisible(false);
                 break;
             case 1:
+                menu.findItem(R.id.menu_search).setVisible(!drawerOpen);
+                menu.findItem(R.id.menu_add).setVisible(!drawerOpen);
                 menu.findItem(R.id.menu_cyrcle).setVisible(false);
+                menu.findItem(R.id.menu_init).setVisible(!drawerOpen);
                 menu.findItem(R.id.menu_ping).setVisible(false);
                 menu.findItem(R.id.menu_sort).setVisible(false);
+                menu.findItem(R.id.menu_brodcast).setVisible(false);
                 break;
             case 2:
-               /* menu.findItem(R.id.menu_search).setVisible(false);*/
-                menu.findItem(R.id.menu_init).setVisible(false);
+                menu.findItem(R.id.menu_search).setVisible(false);
                 menu.findItem(R.id.menu_add).setVisible(false);
                 menu.findItem(R.id.menu_cyrcle).setVisible(false);
+                menu.findItem(R.id.menu_init).setVisible(false);
+                menu.findItem(R.id.menu_ping).setVisible(!drawerOpen);
                 menu.findItem(R.id.menu_sort).setVisible(false);
+                menu.findItem(R.id.menu_brodcast).setVisible(!drawerOpen);
+                break;
+            case 3:
+                menu.findItem(R.id.menu_search).setVisible(false);
+                menu.findItem(R.id.menu_add).setVisible(false);
+                menu.findItem(R.id.menu_cyrcle).setVisible(false);
+                menu.findItem(R.id.menu_init).setVisible(false);
+                menu.findItem(R.id.menu_ping).setVisible(false);
+                menu.findItem(R.id.menu_sort).setVisible(false);
+                menu.findItem(R.id.menu_brodcast).setVisible(false);
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
     }
-
-
 
     public long insertIDnext() {
         return (IDnext++);
@@ -416,6 +507,13 @@ public class ActivityMain extends AppCompatActivity {
 
     public AdapterDB getDBase() {
         return DBase;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(Reciver);
+        super.onDestroy();
     }
 }
 

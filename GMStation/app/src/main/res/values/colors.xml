@@ -11,6 +11,8 @@
     <color name="ShaderQuad">#10000000</color>
     <color name="LighterHalf">#50ffffff</color>
 
+    <color name="IconBox">#490b0b</color>
+
     <color name="SearchBox">#de534d</color>
     <color name="NewBackground">#ef9a9a</color>
     <color name="TabBackground">#ffffff</color>

@@ -1,6 +1,5 @@
 package com.etfos.kraky.gmstation;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,12 +11,10 @@ import java.util.ArrayList;
 public class AdapterPage extends FragmentStatePagerAdapter {
 
     private ArrayList<ObjectListFragment> TTitles;
-    private Context ctx;
-    private int baseId = 0;
 
-    public AdapterPage(FragmentManager FM, Context ctx, ArrayList<ObjectListFragment> TTitles){
+
+    public AdapterPage(FragmentManager FM, ArrayList<ObjectListFragment> TTitles){
         super(FM);
-        this.ctx = ctx;
         this.TTitles = TTitles;
     }
 

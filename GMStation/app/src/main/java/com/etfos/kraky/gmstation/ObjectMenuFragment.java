@@ -9,7 +9,7 @@ public class ObjectMenuFragment extends Fragment {
 
     private String name;
     private ArrayList<ObjectListFragment> FLIST;
-    public long ID;
+    private long ID;
     public int IMG;
     public ObjectListener CL;
     private AdapterDB DBase;
@@ -55,4 +55,5 @@ public class ObjectMenuFragment extends Fragment {
     public void setID(long ID) {
         this.ID = ID;
     }
+
 }

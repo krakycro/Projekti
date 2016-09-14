@@ -27,14 +27,15 @@ public class AdapterMenu extends BaseAdapter {
     }
 
 
+
     @Override
     public int getCount() {
-        return LIST.size();
+            return this.LIST.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return LIST.get(position);
+            return this.LIST.get(position);
     }
     /*@Override
     public Fragment getItem(int position) {
@@ -48,8 +49,7 @@ public class AdapterMenu extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
-        ObjectMenuFragment curr = LIST.get(position);
+        ObjectMenuFragment curr = this.LIST.get(position);
         convertView =  inflater.inflate(R.layout.layout_menu_list, null );
 
        // try{

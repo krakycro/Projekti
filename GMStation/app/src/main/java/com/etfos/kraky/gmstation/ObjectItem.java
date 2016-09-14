@@ -6,7 +6,6 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -77,7 +76,7 @@ public abstract class ObjectItem {
                             @Override
                             public void run() {
                                 //FL.animate().translationX(-FL.getWidth());
-                                Log.i("KRAKY: swipe","item");
+                                //Log.i("KRAKY: swipe","item");
                             }
                         }).run();
                         DL.openDrawer(Gravity.RIGHT);
@@ -169,14 +168,14 @@ public abstract class ObjectItem {
         LClick.TI.setId(getParent());
         LClick.setCtx(getCtx());
 
-        Log.i("CL bo-ta-TI",LClick.board+"-tab:"+LClick.tab+"-id:"+LClick.TI.getId()+"-men:"+LClick.TI.getMenu()+"-ress:"+LClick.TI.getRess()+"-pos:"+LClick.TI.getPoss());
+        //Log.i("CL bo-ta-TI",LClick.board+"-tab:"+LClick.tab+"-id:"+LClick.TI.getId()+"-men:"+LClick.TI.getMenu()+"-ress:"+LClick.TI.getRess()+"-pos:"+LClick.TI.getPoss());
         getBody().setOnLongClickListener(new View.OnLongClickListener() {
             ObjectListener TT = LClick;
             @Override
             public boolean onLongClick(View v) {
 
                 if(v.isPressed()){
-                    Log.i("LC id-ress-tp",TT.TI.getId()+"-"+TT.TI.getRess()+"-"+TT.TI.getType());
+                    //Log.i("LC id-ress-tp",TT.TI.getId()+"-"+TT.TI.getRess()+"-"+TT.TI.getType());
                     TT.init();
                 }
                 return true;
